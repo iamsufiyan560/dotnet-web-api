@@ -10,29 +10,29 @@ public static class GamesEndpoints
 
   private static readonly List<GameDto> games = [
 
-   new(
-    1,
-    "God of War",
-    "Action",
-    49.99M,
-    new DateOnly(2018, 4, 20)
-),
-new(
-    2,
-    "Spider-Man: Miles Morales",
-    "Adventure",
-    39.99M,
-    new DateOnly(2020, 11, 12)
-),
-new(
-    3,
-    "Horizon Zero Dawn",
-    "RPG",
-    29.99M,
-    new DateOnly(2017, 2, 28)
-)
+  new(
+      1,
+      "God of War",
+      "Action",
+      49.99M,
+      new DateOnly(2018, 4, 20)
+  ),
+  new(
+      2,
+      "Spider-Man: Miles Morales",
+      "Adventure",
+      39.99M,
+      new DateOnly(2020, 11, 12)
+  ),
+  new(
+      3,
+      "Horizon Zero Dawn",
+      "RPG",
+      29.99M,
+      new DateOnly(2017, 2, 28)
+  )
 
- ];
+];
 
 
 
@@ -41,7 +41,7 @@ new(
 
 
 
-    var group = app.MapGroup("games");
+    var group = app.MapGroup("games").WithParameterValidation();
 
 
 
@@ -60,7 +60,6 @@ new(
 
     group.MapPost("/", (CreateGameDto newGame) =>
     {
-
       GameDto game = new(
         games.Count + 1,
         newGame.Name,
@@ -71,9 +70,6 @@ new(
       games.Add(game);
 
       return Results.CreatedAtRoute(GetGameEndpointName, new { id = game.Id }, game);
-
-
-
     });
 
 
@@ -82,7 +78,6 @@ new(
 
 
       var index = games.FindIndex(game => game.Id == id);
-
 
 
       if (index == -1)
