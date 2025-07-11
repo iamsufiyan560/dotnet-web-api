@@ -1,4 +1,4 @@
-using System.Net.NetworkInformation;
+
 using GameStore.Api.Data;
 using GameStore.Api.Endpoints;
 
@@ -13,10 +13,11 @@ builder.Services.AddSqlite<GameStoreContext>(connString);
 var app = builder.Build();
 
 app.MapGamesEndpoints();
+app.MapGamesEndpoints();
 
 
 
-app.MigrateDb();
+await app.MigrateDbAsync();
 
 
 app.Run();
